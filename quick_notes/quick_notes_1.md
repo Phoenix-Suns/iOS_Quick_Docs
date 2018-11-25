@@ -2,7 +2,8 @@ Giữ Ctrl(Comand), Right Mouse + Press + Drag - kéo Control(lable, button) t�
 
 ## Tạo Project
 
-Orinazation indentifind: com.yourname.
+File/ New/ Project (Shift + Command + N)
+Orinazation indentifind (tên tổ chức): com.yourname.
 
 ## On Storyboard
 
