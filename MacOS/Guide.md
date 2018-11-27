@@ -32,7 +32,7 @@ Option = Control
 
 > Command + Shift + 3
 > Command + Shift + 4
-s
+
 ![](mac_shortcut.png)
 
 
