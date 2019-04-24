@@ -36,3 +36,8 @@ Chạy Project
 
 Chọn phiên bản Ios: 
 > General > Deployment Target
+
+## Kết nối Storyboard sang Code
+
+Chuyển chế độ xem chia 2: nút 2 vòng tròn (góc trên/ phải)
+> Hold Ctrl + Click + Drag UI
