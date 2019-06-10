@@ -11,7 +11,7 @@ class Question {
         answer = correctAnswer
     }
 
-    // 	Function/ Action
+    // Function/ Action
     func doSomething(person: String) -> String {
         return "Hello, " + person + "!"
     }
@@ -19,5 +19,5 @@ class Question {
 
 
 // USING
-let question = Question(text: "Are you ok?", correctAnswer: true)
-var saySomething = question.doSomething(person: "nghĩa à")  
+let question = Question(text: "Are you ok?", correctAnswer: true)   // init
+var saySomething = question.doSomething(person: "nghĩa à")      // Function
