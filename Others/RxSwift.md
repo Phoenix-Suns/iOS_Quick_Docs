@@ -7,7 +7,7 @@
 NetworkProvider.shared.services.getPostCategory(withPage: 1, itemsPerPage: -1).asObservable()
     .flatMap { [weak self] response -> Observable<Response<PostDetailDocs?>> in
         guard let _ = self, let data = response.data else { return Observable.empty() }
-        
+
         //=== Handel Data ===
 
         return NetworkProvider.shared.services.getNewestPosts(page: 1, itemsPerPage: NUMBER_ITEMS).asObservable()
