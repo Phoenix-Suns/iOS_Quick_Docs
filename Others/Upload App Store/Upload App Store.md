@@ -1,0 +1,47 @@
+# Tạo App trên App Store
+
+## Tạo key trong keychain
+
+- Keychain Access/ Certificate Assistant/ Request Certificate from certificate Authority...
+
+- Paste Login Email
+[x] Save To Disk
+
+- Tạo ra file: *.certSigningRequest
+
+![create cer](create_cert.png)
+
+## Tạo Certificates, Identifiers & Profiles
+
+Truy cập:
+<https://developer.apple.com/account/resources/profiles/list>
+
+![Certificates_Identifiers_Profiles](Certificates_Identifiers_Profiles.png)
+
+### Tạo Certificates
+
+Chứng chỉ cho App. Có thể dùng nhiều App
+
+- Nhấp (+)
+- Create a New Certificate:
+  - Apple Distribution (Xcode 11 về trước)
+  - iOS App Development (Sau này)
+- Nhấn Continue
+  - Choose File: chọn file *.certSigningRequest
+- Nhấn Continue
+  - Nhấn Download: file *.cer
+  
+- Chạy file .cer trong Keychain
+- Export Certificate vừa tạo: file .p12
+(Share file cho Thành viên trong nhóm)
+
+### Tạo Identifiers
+
+Id cho App.
+
+- Nhấp (+)
+- Register a New Identifier
+  - App IDs (Tạo App id)
+- Nhấp Continue
+  - Bundle ID: App Id (Bundle Indentifier)
+- Nhấp Register
