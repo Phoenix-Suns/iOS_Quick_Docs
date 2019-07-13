@@ -5,7 +5,5 @@
 @IBOutlet weak var imageViewBall: UIImageView!
 
 // Set Image
-imageViewBall.image = UIImage.init(imageLiteralResourceName: "Assets Name")
-// Or
 imageViewBall.image = UIImage(named: "Assets Name")
 ```
