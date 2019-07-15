@@ -1,10 +1,21 @@
 # AutoLayout by Code
 
+- [AutoLayout by Code](#AutoLayout-by-Code)
+  - [Simple Start](#Simple-Start)
+  - [Some Constrains](#Some-Constrains)
+  - [Some note](#Some-note)
+    - [Main View](#Main-View)
+    - [Refresh Layout](#Refresh-Layout)
+    - [Animation with constrain](#Animation-with-constrain)
+  - [Constraint with Snapkit](#Constraint-with-Snapkit)
+
+![abc](AutoLayout1_inteface1.png)
+
 ## Simple Start
 
 ```swift
 class FirstViewController: UIViewController {
-    
+
     var redView: UIView!
     var didUpdateViewConstraints = false
 
@@ -19,18 +30,19 @@ class FirstViewController: UIViewController {
         redView.backgroundColor = UIColor.red
         redView.translatesAutoresizingMaskIntoConstraints = false   // apply AutoLayout, using when create View by code
         view.addSubview(redView)
-        
+
         view.setNeedsUpdateConstraints()
     }
-    
+
     override func updateViewConstraints() {
         if !didUpdateViewConstraints {
             let redViewConstraints = [
                 NSLayoutConstraint(item: redView!, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0),
+                //...
                 // === Setup First Constrain Here ===
             ]
             NSLayoutConstraint.activate(redViewConstraints)
-            
+
             didUpdateViewConstraints = true
         }
         super.updateViewConstraints()
@@ -38,127 +50,69 @@ class FirstViewController: UIViewController {
 }
 ```
 
+## Some Constrains
 
-//
-//  ViewController.swift
-//  AutoLayoutProgrammaticaly
-//
-//  Created by HaoLe on 5/13/19.
-//  Copyright © 2019 BTS. All rights reserved.
-//
+```swift
+// RedView.Top = SafeArea.Top
+NSLayoutConstraint(item: redView!, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
 
-import UIKit
-import SnapKit
+// RedView.Width = 100
+NSLayoutConstraint(item: redView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0)
 
-class FirstViewController: UIViewController {
-    
-    var redView: UIView!
-    var blueView: UIView!
-    var greenView: UIView!
-    
-    var expandButton: UIButton!
-    var blueConstraintTop: NSLayoutConstraint!
-    
-    //var inputCustomView = InputVew.fromNib()
-    
-    var didUpdateViewConstraints = false
+// RedView.CenterX = View.CenterX
+NSLayoutConstraint(item: redView!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0)
+```
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpViews()
-    }
-    
-    func setUpViews() {
-        redView = UIView()
-        redView.backgroundColor = UIColor.red
-        redView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(redView)
-        
-        blueView = UIView()
-        blueView.backgroundColor = .blue
-        blueView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(blueView)
-        
-        expandButton = UIButton()
-        expandButton.backgroundColor = .gray
-        expandButton.setTitleColor(.white, for: .normal)
-        expandButton.setTitle("Expand", for: .normal)
-        expandButton.translatesAutoresizingMaskIntoConstraints = false
-        expandButton.addTarget(self, action: #selector(self.expandButtonPressed(_:)), for: .touchUpInside)
-        view.addSubview(expandButton)
-        
-        greenView = UIView()
-        greenView.backgroundColor = UIColor.green
-        greenView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(greenView)
-        
-//        inputCustomView.translatesAutoresizingMaskIntoConstraints = false
-//        inputCustomView.layer.borderWidth = 1.0
-//        inputCustomView.layer.borderColor = UIColor.gray.cgColor
-//        view.addSubview(inputCustomView)
-        
-        view.setNeedsUpdateConstraints()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func updateViewConstraints() {
-        if !didUpdateViewConstraints {
-            let redViewConstraints = [
-                NSLayoutConstraint(item: redView!, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: redView!, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: redView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0),
-                NSLayoutConstraint(item: redView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 100.0)
-            ]
-            NSLayoutConstraint.activate(redViewConstraints)
-            
-            blueConstraintTop = NSLayoutConstraint(item: blueView!, attribute: .top, relatedBy: .equal, toItem: redView, attribute: .bottom, multiplier: 1.0, constant: 0)
-            let blueViewConstraints = [
-                blueConstraintTop!,
-                NSLayoutConstraint(item: blueView!, attribute: .centerX, relatedBy: .equal, toItem: redView, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: blueView!, attribute: .width, relatedBy: .equal, toItem: redView, attribute: .width, multiplier: (1/2), constant: 0),
-                NSLayoutConstraint(item: blueView!, attribute: .height, relatedBy: .equal, toItem: redView, attribute: .height, multiplier: (1/2), constant: 0)
-            ]
-            NSLayoutConstraint.activate(blueViewConstraints)
-            
-            let buttonConstraints = [
-                NSLayoutConstraint(item: expandButton!, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: expandButton!, attribute: .bottom, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: expandButton!, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0.0),
-                NSLayoutConstraint(item: expandButton!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50.0)
-            ]
-            NSLayoutConstraint.activate(buttonConstraints)
-            
-            greenView.snp.makeConstraints { (make) in
-                make.width.height.equalTo(100.0)
-                make.top.equalTo(blueView!.snp.bottom).offset(30.0)
-                make.centerX.equalTo(self.view.snp.centerX)
-            }
-            
-//            inputCustomView.snp.makeConstraints { (make) in
-//                make.centerX.equalTo(self.view)
-//                make.centerY.equalTo(self.view)
-//                make.left.equalTo(self.view.snp.left).offset(16.0)
-//                make.right.equalTo(self.view.snp.right).offset(-16.0)
-//            }
-            didUpdateViewConstraints = true
-        }
-        super.updateViewConstraints()
-    }
-    
-    @IBAction func expandButtonPressed(_ sender: Any) {
-        blueConstraintTop.constant = 30.0
-        UIView.animate(withDuration: 1.0) {
-            self.view.layoutIfNeeded()  // Refresh layout
-        }
-        
-        //let controller = StudentViewController.init(nibName: "StudentViewController", bundle: nil)
-//        self.navigationController?.show(controller, sender: nil)
-        //self.navigationController?.pushViewController(controller, animated: true)
-//        self.present(controller, animated: true, completion: nil)
-    }
+## Some note
 
+### Main View
+
+```swift
+self.view   // Contain View
+self.view.safeAreaLayoutGuide   // Safe View
+```
+
+### Refresh Layout
+
+>self.view.layoutIfNeeded()  // Refresh layout
+
+### Animation with constrain
+
+```swift
+// Setup
+var redConstraintTop: NSLayoutConstraint!
+override func updateViewConstraints() {
+    //...
+    // RedView.Top = SafeArea.Top
+    redConstraintTop = NSLayoutConstraint(item: redView!, attribute: .top, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .top, multiplier: 1.0, constant: 0)
 }
 
+// Start Animation: Top going to down from 0 to 30
+ @IBAction func expandButtonPressed(_ sender: Any) {
+    redConstraintTop.constant = 30.0
+    UIView.animate(withDuration: 1.0) {
+        self.view.layoutIfNeeded()  // Refresh layout
+    }
+}
+```
+
+## Constraint with Snapkit
+
+```swift
+greenView.snp.makeConstraints { (make) in
+    make.width.height.equalTo(100.0)
+    make.top.equalTo(blueView!.snp.bottom).offset(30.0)
+    make.centerX.equalTo(self.view.snp.centerX)
+}
+
+// Same Same value
+let redViewConstraints = [
+    NSLayoutConstraint,
+    NSLayoutConstraint
+    //...
+    // === Setup First Constrain Here ===
+]
+NSLayoutConstraint.activate(redViewConstraints)
+```
+
+---

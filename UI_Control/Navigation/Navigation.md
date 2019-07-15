@@ -9,6 +9,7 @@ Di chuyển, hiển thị, tắt mở View Controller
     - [Xoá VC](#Xo%C3%A1-VC)
     - [Send Data to VC](#Send-Data-to-VC)
     - [Trả dữ liệu về VC trước (cha)](#Tr%E1%BA%A3-d%E1%BB%AF-li%E1%BB%87u-v%E1%BB%81-VC-tr%C6%B0%E1%BB%9Bc-cha)
+  - [TabController in Delegate](#TabController-in-Delegate)
   - [Tham Khảo](#Tham-Kh%E1%BA%A3o)
 
 ## Hiện View Controller(Nib/Xib file) trong AppDelegate
@@ -35,6 +36,8 @@ let nav = UINavigationController(rootViewController: controller)
 ```
 
 ### Thêm VC
+
+![navigation back](Navigation_back.png)
 
 ```swift
 // Hiện VC trong Navigation đầu tiên
@@ -116,6 +119,34 @@ func goToSkinList() {
     let nav = UINavigationController(rootViewController: controller)
     self.present(nav, animated: true, completion: nil)
 }
+```
+
+## TabController in Delegate
+
+![tab](Navigation_tabbar.png)
+
+```swift
+let controller1 = FirstViewController(nibName: "FirstViewController", bundle: nil)
+let nav1 = UINavigationController(rootViewController: controller1)
+
+let controller2 = StudentViewController(nibName: "StudentViewController", bundle: nil)
+let nav2 = UINavigationController(rootViewController: controller2)
+
+
+let tabbarController = UITabBarController()
+tabbarController.setViewControllers([nav1, nav2], animated: false)
+
+let tabFirst = tabbarController.tabBar.items![0]
+tabFirst.image = UIImage(named: "ic_like")
+tabFirst.title = "First"
+
+let tabSecond = tabbarController.tabBar.items![1]
+tabSecond.image = UIImage(named: "ic_love")
+tabSecond.title = "Second"
+
+// Show in Delegate
+window?.rootViewController = tabbarController
+window?.makeKeyAndVisible()
 ```
 
 ---
