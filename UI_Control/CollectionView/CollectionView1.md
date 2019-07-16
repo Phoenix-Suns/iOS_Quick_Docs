@@ -4,6 +4,22 @@
 
 ![spacing](CollectionView_spacing.png)
 
+- Tạo UICollectionViewCell and XIB
+
+```swift
+class CollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+}
+```
+
+- Create on UIViewController
+
 ```swift
 private let spacingLeft: CGFloat = 10.0
 private let spacingRight: CGFloat = 20.0
@@ -53,5 +69,4 @@ extension CollectionViewViewController: UICollectionViewDataSource, UICollection
 }
 ```
 
-
-
+---
