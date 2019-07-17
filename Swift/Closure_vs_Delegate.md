@@ -50,6 +50,10 @@ class SecondViewController: UIViewController {
 ### Nhận Dữ liệu ở VC1
 
 ```swift
+protocol ReceiveDelegate {
+    func onReceiveMessage(value: String)
+}
+
 class FirstViewController: UIViewController {
     // ...
     @IBAction func goToSecondViewControllerTouch(_ sender: Any) {
