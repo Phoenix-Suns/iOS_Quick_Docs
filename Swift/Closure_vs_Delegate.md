@@ -83,7 +83,7 @@ class SecondViewController: UIViewController {
     //...
 
     //var receiveDelegate: ReceiveDelegate?
-    //var receiveHandle: ((String) -> Void)?    // Có thể khai báo trược tiếp
+    //var receiveHandle: ((String) -> Void)?    // Có thể khai báo trực tiếp
     var receiveHandle: ReceiveHandle?
 
     @IBAction func closeVCTouch(_ sender: Any) {
@@ -110,10 +110,12 @@ class FirstViewController: UIViewController {
     }
 }
 
-<!-- extension FirstViewController: ReceiveDelegate {
+/*
+extension FirstViewController: ReceiveDelegate {
     func onReceiveMessage(value: String) {
         // Receive data from VC 2
         messageLabel.text = value
     }
-} -->
+}
+*/
 ```
