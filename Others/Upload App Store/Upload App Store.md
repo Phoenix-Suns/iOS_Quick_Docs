@@ -56,7 +56,9 @@ Development or Distribution Profile
 
 ## Connect App Store
 
-goto: <https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app>
+goto App Store Connect: <https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app>
+
+![app store connect overview](AppStoreConnectOverview.png)
 
 - Create App. Click (+)
 - App Store > App Infomation: Privacy Policy URL (must be exist page)
@@ -64,6 +66,13 @@ goto: <https://appstoreconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app>
   - Included Assets (must have)
   - General App Information > App Store Icon (must have)
 
+## Push App to Store
+
+![Organizer](Organizer.png)
+
+- Xcode > Product > Archive
+- View All Archives: Window > Organizer
+  - Click Distributte App
 
 ## Note
 
