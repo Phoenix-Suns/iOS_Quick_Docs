@@ -74,7 +74,11 @@ self.view.safeAreaLayoutGuide   // Safe View
 
 ### Refresh Layout
 
->self.view.layoutIfNeeded()  // Refresh layout
+Refresh layout
+> self.view.layoutIfNeeded()
+
+Auto Refresh Layout
+> self.modalVC.view.layoutIfNeeded()
 
 ### Animation with constrain
 

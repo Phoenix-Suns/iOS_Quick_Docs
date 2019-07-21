@@ -28,11 +28,16 @@ Option = Control
 
 > Command + Option + Esc
 
-# Chụp màn hình
+## Chụp màn hình
 
 > Command + Shift + 3
 > Command + Shift + 4
 
 ![](mac_shortcut.png)
 
+## Xoá file ._
 
+> rm -rf ._*
+> find . -name ._\* -delete
+
+---
