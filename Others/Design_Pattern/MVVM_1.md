@@ -70,13 +70,13 @@ class NumberModel {
 
 ```swift
 class NumberViewModel {
-    private var numberModel:NumberModel?
+    private var numberModel: NumberModel?
     
     var numberString: DataBinding<String>?
     var decreaseEnabled: DataBinding<Bool>?
     
     
-    init(number:Int) {
+    init(number: Int) {
         self.numberModel = NumberModel(value: number)
         
         self.numberString = DataBinding(value: formatNumber(number: number))
@@ -160,9 +160,9 @@ class NumberVC: UIViewController {
 
 ## Actions Flow
 
-- (View) increaseAction 
-- --> (ViewModel) increaseNumber 
-- --> (Model) setValue 
+- (View) increaseAction
+- --> (ViewModel) increaseNumber
+- --> (Model) setValue
 - --> (ViewModel) updateViewWithFireEvents
 - --> (View) numberViewModel.numberString?.bindAndFire
 
