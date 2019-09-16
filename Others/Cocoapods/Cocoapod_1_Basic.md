@@ -24,7 +24,7 @@ target 'MyApp' do
 end
 ```
 
-4/ Install dependences in Podfile, run: 
+4/ Install dependences in Podfile, run:
 
 > pod install
 
