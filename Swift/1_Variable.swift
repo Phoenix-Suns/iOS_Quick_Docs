@@ -38,7 +38,7 @@ for number in 1..10 {
 }
 
 // from 9 to 1 get thập phân number chia 3  = 0
-for number in (1..<10).revered() where number %3 == 0 {
+for number in (1..<10).revered() where number%3 == 0 {
     print(number)
 }
 
