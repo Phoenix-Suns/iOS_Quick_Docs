@@ -1,5 +1,38 @@
 # Swift Quick Syntax
 
+- [Swift Quick Syntax](#swift-quick-syntax)
+  - [FILE TYPE](#file-type)
+  - [HELLO WORLD](#hello-world)
+  - [COMMENT](#comment)
+  - [VARIABLE](#variable)
+    - [Data Types](#data-types)
+    - [Optional (null able)](#optional-null-able)
+    - [Generic](#generic)
+  - [STRING](#string)
+  - [ENUM](#enum)
+  - [OPERATOR](#operator)
+  - [ARRAY](#array)
+    - [SET: item cannot be duplicate](#set-item-cannot-be-duplicate)
+    - [Dictionary: List Item with Key](#dictionary-list-item-with-key)
+    - [Tuble: Group item difference type](#tuble-group-item-difference-type)
+  - [CONDITIONAL](#conditional)
+    - [GUARD](#guard)
+  - [LOOP](#loop)
+    - [For](#for)
+    - [While](#while)
+  - [FUNCTION](#function)
+    - [Argument](#argument)
+    - [Nested Function: function inside function](#nested-function-function-inside-function)
+    - [Closures: Function without name](#closures-function-without-name)
+  - [CLASS](#class)
+    - [Protocols: abstract class (Blueprint class)](#protocols-abstract-class-blueprint-class)
+  - [PACKAGE/ NAMESPACE](#package-namespace)
+  - [IMPORT](#import)
+  - [EXCEPTION](#exception)
+  - [IMPRESSION](#impression)
+    - [Structs](#structs)
+
+
 ## FILE TYPE
 
 *.swift
@@ -9,8 +42,8 @@
 ```swift
 import UIKit
 
-var greeting = "Hello, playground"
-print(greeting) // Show on Console
+var year = 2014
+print("Hello world \(year)") // show in console: Hello world 2014
 ```
 
 ## COMMENT
@@ -25,34 +58,38 @@ Group Comment
 
 ## VARIABLE
 
-- Declare Variable
-- Assign Variable
-- Variable Types
-- Using Variable
-- Constant/ final
-- Generic Variable - kiểu chung T
-
 ```swift
 // Declare
 var myName = "Hello, playground"
-myName = "Nghia" // Assign Variable
-
-// Types: Int, String, Bool, Float, Double
+let myAgeInTenYears : Int = myAge + 10 // 40
 
 // Constant
 let myAge = 30  // 30
-let myAgeInTenYears : Int = myAge + 10 // 40
+
+// Assign
+myName = "Nghia"
+```
+
+### Data Types
+
+```swift
+Character // "s","a" --- a 16-bit Unicode character
+String // "hello world!" --- represents textual data
+Int	// 3, -23 --- an integer number
+Float // 2.4, 3.14, -23.21 --- represents 32-bit floating-point number
+Double // 2.422342412414 --- represents 64-bit floating-point number
+Bool // true, false --- Any of two values: true or false
 ```
 
 ### Optional (null able)
 
 ```swift
 let name1: String = "name1"
-var name2: String?  // Có thể nil (wrapping)
-var name3: String!  // Không nil, khai báo sau (unwrapping)
+var name2: String?  // null able (wrapping)
+var name3: String!  // not null, set value after (unwrapping)
 
 // null safety, unwrapping
-print("name2: \(name2 ?? "")")
+var name: String = name2 ?? ""
 
 // Check nil
 if name2 != nil { }
@@ -61,7 +98,62 @@ if name2 != nil { }
 var dog: Animal?
 //dog = Animal()
 //dog?.name = "abc"
-print("dog name: \(dog?.name ?? "")")
+var dogName: String = dog?.name ?? ""
+```
+
+### Generic
+
+```swift
+// In Function (Type T)
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) { }
+
+// In Class
+struct Stack<Element> {
+    var items: [Element] = []
+    mutating func push(_ item: Element) { }
+    mutating func pop() -> Element { }
+}
+
+// Constraint Type
+func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) { }
+```
+
+## STRING
+
+```swift
+var hello1 = "Hello "
+var hello2 = "Hello "
+var name = "Jack"
+var str = String()
+
+// multiline string 
+var str: String = """
+Swift is awesome
+I love Swift
+"""
+
+// Plus String
+let fullName = "My Name is \(myName)"
+String(format: "%.2f", 3.1456)  // 3.14
+hello1.append(name) // Hello Jack
+
+// Compare
+hello1 == hello2 // true
+
+.count  // size
+.isEmpty	// determines if a string is empty or not
+.capitalized	// capitalizes the first letter of every word in a string
+.uppercased()	// converts string to uppercase
+.lowercase()	// converts string to lowercase
+.hasPrefix()	// determines if a string starts with certain characters or not
+.hasSuffix()	// determines if a string ends with certain characters or not
+
+// Escape Sequences
+\0	//null
+\\	//plain backslash
+\t	//a horizontal tab
+\n	//line feed
+\"	//double quote
 ```
 
 ## ENUM
@@ -74,34 +166,38 @@ enum CompassPoint {
     case east
     case west
 
-    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune  // Multiple cases
+    // Multiple cases
+    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune  
 
-    case enumFunction(Int, Int)     // Func Cases
+    // Func Cases
+    case enumFunction(Int, Int)     
 
-    case enumValue = "nghia"        // Raw value
+    // Raw value
+    case enumValue = "nghia"        
     // CompassPoint(rawValue: 7)    // Set Raw value
 }
 
 // Using
 var directionToHead = CompassPoint.west
 directionToHead = .east // Simple Using
-directionToHead = .enumFunction(8, 85909)
-let getRawValue = CompassPoint.enumValue.rawValue   // nghia
+directionToHead = .enumFunction(8, 85909) // Func Cases
+let getRawValue = CompassPoint.enumValue.rawValue   // Raw value
 
 switch directionToHead {
     case .north:
         print("Lots of planets have a north")
     case .south:
         print("Watch out for penguins")
-    case .enumFunction(let product, let check):
-        print("ENUM FUNCTION: \(product), \(check).")
     default:
         print("Not a safe place for humans")
+
+    // Func Cases
+    case .enumFunction(let product, let check):
+        print("ENUM FUNCTION: \(product), \(check).")
 }
 
 // Count case
 CompassPoint.allCases.count // 12 cases
-
 ```
 
 ## OPERATOR
@@ -129,14 +225,6 @@ let (x, y) = (1, 2) // x=1, y=2
 Int("4")
 ```
 
-## STRING
-
-```swift
-// Plus String
-let fullName = "My Name is \(myName)"
-String(format: "%.2f", 3.1456)  // 3.14
-```
-
 ## ARRAY
 
 ```swift
@@ -145,7 +233,7 @@ let names = ["Anna", "Alex", "Brian", "Jack"]
 var emptyDoubles: [Double] = []
 var emptyFloats: Array<Float> = Array()
 
-// Get Item thứ 2
+// Get Second Item
 names[2]
 
 // Assign
@@ -159,19 +247,121 @@ names.students.insert("Liam", at: 3)
 // Remove Item
 names.remove(at: 0)
 
-// kiểm tra item tồn tại
+// check item exist
 names.contains("Anna") // true
 
-names.isEmpty // kt rỗng
-.count   // đếm item
+names.isEmpty // check null
+.count   // count items
 
 for i in 0..<names.count { 
     // i = index of names
 }
-// 1...5 từ 1 đến 5
-// names[2...] lấy từ 2
-// names[...2] lấy tới 2
-// names[..<2] lấy nhỏ hơn 2
+// 1...5 from 1 to 5
+// names[2...] get from 2
+// names[...2] get to 2
+// names[..<2] get less 2
+```
+
+### SET: item cannot be duplicate
+
+```swift
+// Declare
+var studentID1 : Set = [1, 2, 3, 4]
+var studentID2 : Set<Int> = [3, 4, 5, 6]
+var emptySet = Set<Int>()
+
+// Get item
+studentID1[i]
+
+// Add
+studentID1.insert(32)
+
+// Delete
+studentID1.remove(32)
+
+.sorted()
+.forEach()
+.contains()
+.randomElement()
+.firstIndex()
+.count
+
+// Add 2 Sets
+studentID1.union(studentID2) // 1,2,3,4,5,6
+
+// intersect 2 Sets
+studentID1.intersection(studentID2) // 3,4
+
+// Out of other Set
+studentID1.subtracting(studentID2) // 1,2
+
+// Out of intersect
+studentID1.symmetricDifference(studentID2) // 1,2,5,6
+
+// Check Child Set
+var studentID1 : Set = [1, 2, 3, 4]
+var studentID3 : Set<Int> = [1, 2]
+studentID3.isSubset(of: studentID1)  // true
+
+// Equal
+var studentID4 : Set = [4, 1, 3, 2]
+studentID1 == studentID4 // true
+```
+
+### Dictionary: List Item with Key
+
+```swift
+// Declare
+var capitalCity = ["Nepal": "Kathmandu", "Italy": "Rome", "England": "London"]
+// Keys are "Nepal", "Italy", "England"
+// Values are "Kathmandu", "Rome", "London"
+var emptyDictionary =  [Int: String]()
+
+// Get Item
+capitalCity["Japan"]
+var (key,value)
+
+// Add or Change Item
+capitalCity["Japan"] = "Tokyo"
+
+// Remove item
+capitalCity.removeValue(forKey: "Japan")
+// capitalCity.removeAll()
+
+// key array
+Array(capitalCity.keys) // Nepal, Italy, England
+
+// value array
+Array(cities.values) // Kathmandu, Rome, London
+
+.sorted()	// sorts dictionary elements
+.shuffled()	// changes the order of dictionary elements
+.contains()	// checks if the specified element is present
+.randomElement()	// returns a random element from the dictionary
+.firstIndex()       // returns the index of the specified element
+
+// For
+for (key,value) in capitalCity {
+  print("\(key): \(value)")
+}
+```
+
+### Tuble: Group item difference type
+
+```swift
+// Declare
+var product = ("MacBook", 99.99)
+
+// Get item value
+product.0   // MacBook
+product.1   // 99.99
+
+// Set item value
+product.1 = 11.11
+
+// Tuples with name
+var company = (product: "AAAA", version: 2.1)
+company.product // AAAA
 ```
 
 ## CONDITIONAL
@@ -199,9 +389,13 @@ switch weather {
     default: 
         print("This might not be a secondary color.") 
 
-  // case "Uber", "Lyft": // Multiple Case
-  // case 1860...1885: // số từ 1860 đến 1885
-  // Case with condition
+    // Multiple Case
+    // case "Uber", "Lyft": 
+
+    // number from 60 to 85
+    // case 60...85: 
+
+    // Case with condition
     case let x where x % 2 == 0:
         print("\(num) is even")
 }
@@ -209,16 +403,15 @@ switch weather {
 // Ternary conditional
 question ? answer1 : answer2
 
-var userDefinedColorName: String?   // defaults to nil
-var colorNameToUse = userDefinedColorName ?? "red"
-// userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
+// Null replacement
+nullVar ?? "not null value"
 ```
 
 ### GUARD
 
 ```swift
 guard condition else {
-    // Nếu condition == false thì chạy Else
+    // IF condition == false > RUN Else
 }
 
 var age: Int? = 22
@@ -229,10 +422,6 @@ return
 ```
 
 ## LOOP
-- For
-- While
-- Break
-- Continue
 
 ### For
 
@@ -240,8 +429,8 @@ return
 // For
 for name in names {
     print(name)
-    // break // Thoát For
-    // continue // Tiếp tục chạy for, Không thực hiện code phía dưới (print("abc"))
+    break // Exit For
+    continue // Continue next for, not run below codes
     print("abc")
 }
 
@@ -250,16 +439,7 @@ for name in names where name != "Java"{
   print(name) 
 }
 
-for i in 0..<names.count { 
-    // i = index of names
-}
-// 1...5 từ 1 đến 5
-// names[2...] lấy từ 2
-// names[...2] lấy tới 2
-// names[..<2] lấy nhỏ hơn 2
-// stride(from: 1, to: 10, by: 2) // từ 1 đến 10, nhảy 2 số
-
-// Thoát khỏi For cha
+// LABLE: Exit Father For
 outerloop: for i in 1...3{
   innerloop: for j in 1...3 {
     if j == 3 {
@@ -281,65 +461,264 @@ repeat {
 } while (condition)
 ```
 
-## LABLE
-## METHOD/ FUNTION
-- Define Method
-- Call Method
-- Parameter in Method
-- Return method
-- Override
-- Passing Argument
-- Static
-- Public/ Private/ Protected
+## FUNCTION
 
 ```swift
-func getMilk() {
+// Define
+func showName() {
     print("nghia")
 }
 
-func getMilk(number: Int) -> String {
-    return "have \(number) cartons";
+// Using (call function)
+showName()
+
+// Return value
+func getName() -> String {
+    return "My name is Nghia";
+}
+// Call function
+var name = getName()
+
+// Return multiple value
+func checkMarks() -> (String, Int) {
+  return ("message", 10)
+}
+// Call function
+var result = checkMarks()
+result.0 // message
+result.1 // 10
+```
+
+### Argument
+
+```swift
+// Argument
+func createNewNumber(number: Int) { }
+// Call function
+createNewNumber(number: 4)  
+
+// Default Argument value
+func addNumbers(a: Int = 7,  b: Int = 8) { }
+// Call function
+addNumbers(a: 2, b: 3)
+addNumbers(a: 2)
+addNumbers()
+
+// Argument label
+func sum(of a: Int, and b: Int) { }
+// Call function
+sum(of: 2, and: 3)  
+
+// Omit Argument Labels (Call function without label)
+func sum(_ a: Int, _ b: Int) { }
+// Call function
+sum(2, 3)   
+
+// Array Parameters
+func sum( numbers: Int...) { }
+// Call function with 3 Parameters
+sum(numbers: 1, 2, 3) 
+
+// Change Parameters after Function call
+func changeName(name: inout String) {
+  name = "Nghia"
+}
+// Using
+var userName = "you"
+changeName(name: &userName) // userName = "Nghia"
+```
+
+### Nested Function: function inside function
+
+```swift
+// Define
+func function1() {
+    //...
+    func function2() {
+        //...
+    }
 }
 
-// USING
-getMilk()   //output: nghia
-var numberMilk = getMilk(number: 4)  //output: have 4 cartons
+// Return value
+func operate(symbol: String) -> (Int, Int) -> Int {
+
+  // inner function to add two numbers 
+  func add(num1:Int, num2:Int) -> Int {
+    return num1 + num2
+  }
+
+  // inner function to subtract two numbers    
+  func subtract(num1:Int, num2:Int) -> Int {
+    return num1 - num2
+  }
+
+  let operation = (symbol == "+") ?  add : subtract
+  return operation
+}
+
+// Using
+let operation = operate(symbol: "+")
+let result = operation(8, 3)
+print("Result:", result)
+```
+
+### Closures: Function without name
+
+```swift
+// Define
+var hello = {
+  print("Hello World")
+}
+
+// with parameters (String type), return value (Int type)
+var hello = { (paraName: String) -> (Int) in
+    // ...
+}
+
+// Closure as parameter
+func grabLunch(search: () -> ()) {
+  search()  
+}
+// Call function
+grabLunch(search: {
+   print("Alfredo's Pizza: 2 miles away")
+})
+
+// Autoclosure: call method without {}
+func display(greet: @autoclosure () -> ()) {}
+display(greet: print("Hello World!"))
 ```
 
 ## CLASS
-- Constructor
-- This
-- Overriding
-- Call Parent/ Super
-- Struct
-- Sealed
-- Interface
-- Abstract
-- Inherit
 
 ```swift
 import Foundation   //Simple Pakage
 
+// Define
 class Question {
     
+    // Property
     let answer : Bool
     let questionText : String
-    
-    // Constructor
-    init(text : String, correctAnswer : Bool) {
-        questionText = text
-        answer = correctAnswer
+    var num1: Int = 0   // Default value
+
+    // computed property
+    var sum1: Int {
+        num1 + 1
     }
 
-    // Function/ Action
+    // Getter, Setter
+    var sum2: Int {
+        get {
+            num1 + 2
+        }
+    
+        // set new value to num1
+        set(modify) {and 
+            num1 = (modify + 10)
+        }
+    }
+
+    // static property 
+    static var name: String = "" // Using: Question.name
+    
+    // Constructor
+    init() { }
+    init(text : String, correctAnswer : Bool) {
+        self.questionText = text
+        self.answer = correctAnswer
+    }
+
+    // Constructor call Constructor
+    convenience init() {
+        self.init(text: "nghia", correctAnswer: 2)
+    }
+
+    // Constructor return null
+    init?() {
+        if (0 == 0)
+            return nil
+        // code
+    }
+    // Using
+    /*var quest = Question()
+    if (quest != nil) { }
+    else { }*/
+
+
+    // Method
     func doSomething(person: String) -> String {
         return "Hello, " + person + "!"
     }
+
+    // Static method
+    static func add() { } // Using: Question.add()
+
+    // Destructor
+    deinit { }
 }
 
 // USING
 let question = Question(text: "Are you ok?", correctAnswer: true)   // init
 var saySomething = question.doSomething(person: "nghĩa à")      // Function
+question.questionText // "Are you ok?"
+
+// Inherit
+class Question2: Question {
+
+    // override method
+    override func doSomething(person: String) -> String {
+        //...
+    }   
+}
+
+// Call parent
+super.
+
+// Call this class
+self.
+```
+
+### Protocols: abstract class (Blueprint class)
+
+```swift
+// Define
+protocol Greet {
+
+  // blueprint of a property 
+  var name: String { get }
+
+  // blueprint of a method 
+  func message() 
+}    
+
+// Implement class
+class Employee: Greet {
+
+  // implementation of property
+  var name = "Perry"
+
+  // implementation of method
+  func message() {
+    print("Good Morning!")
+  }
+}
+
+// Multiple implement
+class Employee: Greet1, Greet2 { }
+
+// Protocol implement protocol
+protocol Brand: Car { }
+
+// Extentions protocol
+protocol Brake {
+  func applyBrake()
+}
+extension Brake {
+  func stop() {
+    print("Engine Stopped")
+  }
+}
 ```
 
 ## PACKAGE/ NAMESPACE
@@ -347,3 +726,28 @@ var saySomething = question.doSomething(person: "nghĩa à")      // Function
 ## EXCEPTION
 - Try Catch
 ## IMPRESSION
+
+### Structs
+
+```swift
+// Define
+struct Bike {
+    // Properties, function Sample Class
+}
+
+// Cannot inherit
+// Data struture simple
+// A lot of Properties
+// Store data simple
+
+// === Struct vs Class ===
+var bike1 = Bike(color: "Blue")
+var bike2 = bike1
+// Struct: copy value
+// Class: copy reference
+
+bike1.color = "Red"
+print(bike2.color)
+// Struct Bike: print "Blue"
+// Class Bike: print "Red"
+```
