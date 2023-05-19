@@ -7,7 +7,6 @@
   - [VARIABLE](#variable)
     - [Data Types](#data-types)
     - [Optional (null able)](#optional-null-able)
-    - [Generic](#generic)
   - [STRING](#string)
   - [ENUM](#enum)
   - [OPERATOR](#operator)
@@ -25,12 +24,23 @@
     - [Nested Function: function inside function](#nested-function-function-inside-function)
     - [Closures: Function without name](#closures-function-without-name)
   - [CLASS](#class)
+    - [Access level](#access-level)
     - [Protocols: abstract class (Blueprint class)](#protocols-abstract-class-blueprint-class)
+    - [Structs](#structs)
+    - [Singleton: only one class instance on project](#singleton-only-one-class-instance-on-project)
   - [PACKAGE/ NAMESPACE](#package-namespace)
   - [IMPORT](#import)
   - [EXCEPTION](#exception)
+    - [Throwing Exception](#throwing-exception)
+    - [Try Catch](#try-catch)
   - [IMPRESSION](#impression)
-    - [Structs](#structs)
+    - [Generic type](#generic-type)
+    - [Extention class, protocol](#extention-class-protocol)
+    - [Typealias: create new type from exist type](#typealias-create-new-type-from-exist-type)
+    - [Hashable class: compare 2 object by hashValue](#hashable-class-compare-2-object-by-hashvalue)
+    - [Equatable struct: compare 2 object](#equatable-struct-compare-2-object)
+    - [Weak Reference: release object without all preference release](#weak-reference-release-object-without-all-preference-release)
+  - [REPERENCE](#reperence)
 
 
 ## FILE TYPE
@@ -99,23 +109,6 @@ var dog: Animal?
 //dog = Animal()
 //dog?.name = "abc"
 var dogName: String = dog?.name ?? ""
-```
-
-### Generic
-
-```swift
-// In Function (Type T)
-func swapTwoValues<T>(_ a: inout T, _ b: inout T) { }
-
-// In Class
-struct Stack<Element> {
-    var items: [Element] = []
-    mutating func push(_ item: Element) { }
-    mutating func pop() -> Element { }
-}
-
-// Constraint Type
-func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) { }
 ```
 
 ## STRING
@@ -672,11 +665,26 @@ class Question2: Question {
     }   
 }
 
-// Call parent
+// Call parent class
 super.
 
 // Call this class
 self.
+```
+
+### Access level
+
+```swift
+public //	accessible from everywhere 
+private // accessible only within the defined class or struct
+fileprivate // accessible only within the current swift file
+internal //	accessible only within the defined module (default)
+
+// Example
+class Vehicle {
+  public var legCount: Int = 0
+  private func method2() { }
+}
 ```
 
 ### Protocols: abstract class (Blueprint class)
@@ -709,23 +717,7 @@ class Employee: Greet1, Greet2 { }
 
 // Protocol implement protocol
 protocol Brand: Car { }
-
-// Extentions protocol
-protocol Brake {
-  func applyBrake()
-}
-extension Brake {
-  func stop() {
-    print("Engine Stopped")
-  }
-}
 ```
-
-## PACKAGE/ NAMESPACE
-## IMPORT
-## EXCEPTION
-- Try Catch
-## IMPRESSION
 
 ### Structs
 
@@ -751,3 +743,164 @@ print(bike2.color)
 // Struct Bike: print "Blue"
 // Class Bike: print "Red"
 ```
+
+### Singleton: only one class instance on project
+
+```swift
+// Create Singleton class
+class FileManager{
+  // create a singleton
+  static let fileObj = FileManager()
+}
+
+// Using
+let file = FileManager.fileObj
+```
+
+## PACKAGE/ NAMESPACE
+## IMPORT
+
+## EXCEPTION
+
+### Throwing Exception
+
+```swift
+// Create Extend Error
+enum DivisionError: Error {
+  case dividedByZero
+}
+// Throwing in function
+func division() throws {
+  //...
+  throw DivisionError.dividedByZero
+}
+```
+
+### Try Catch
+
+```swift
+do {
+  try division()
+  print("Valid Division")
+}
+catch DivisionError.dividedByZero {
+  print("Error: Denominator cannot be 0")
+}
+
+// Disable error handling
+try! division()
+```
+
+## IMPRESSION
+
+### Generic type
+
+```swift
+// Generic Function (Type T)
+func displayData<T>(data: T) { }
+
+// Using
+displayData(data: 5) 
+displayData(data: "Swift")
+
+// Generic Class
+struct Stack<Element> {
+    var items: [Element] = []
+    func push(item: Element) { }
+    func pop() -> Element { }
+}
+
+// Constraint Type
+func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) { }
+```
+
+### Extention class, protocol
+
+```swift
+// Extension class
+class Temperature { }
+extension Temperature {
+  // add new methods
+} 
+
+// Extentions protocol
+protocol Brake {
+  func applyBrake()
+}
+extension Brake {
+  func stop() {
+    print("Engine Stopped")
+  }
+}
+```
+
+### Typealias: create new type from exist type
+
+```swift
+typealias CompletionHandler = (Int)->(String)
+```
+
+### Hashable class: compare 2 object by hashValue
+
+```swift
+// Create struct
+struct Employee: Hashable {
+  var name: String
+
+  // Only compare by "name" property
+  //func hash(into hasher: inout Hasher) { 
+  //  hasher.combine(name)
+  //}
+}
+
+let object1 = Employee(name: "Sabby")
+let object2 = Employee(name: "Sabby")
+let object3 = Employee(name: "Smith")
+
+object1.hashValue == object2.hashValue // true
+object1.hashValue == object3.hashValue // false
+```
+
+### Equatable struct: compare 2 object
+
+```swift
+// conform Employee to Equatable
+struct Employee: Equatable {   
+  var name: String
+  var salary: Int
+
+  // Only compare by "salary" property
+  //static func == (lhs: Employee, rhs: Employee) -> Bool {
+   // return lhs.salary == rhs.salary 
+  //}
+}
+
+// initialize two objects with different property values 
+let obj1 = Employee(name: "Sabby", salary: 40000)
+let obj2 = Employee(name: "Sabby", salary: 40000)
+let obj3 = Employee(name: "Cathy", salary: 30000)
+
+obj1 == obj2 // true
+obj1 == obj3  // false
+```
+
+### Weak Reference: release object without all preference release
+
+```swift
+class Gadget {
+  // When object Gadget release memory (=nil), no need "owner" = nil
+  weak var owner: Person?
+
+  // Same with weak, but must be init value
+  unowned var owner: Person
+  init(owner: Person) {
+      self.owner = owner
+  }
+}
+```
+
+---
+
+## REPERENCE
+
+- https://www.programiz.com/swift-programming
