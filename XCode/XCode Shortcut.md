@@ -32,7 +32,7 @@
 
 ### Gợi ý code (Show Completions): Control Space
 
-### Formatting Code (Re-Indent): ⌃I (Control + I) - Structure/ Re-Indent
+### Formatting Code (Re-Indent): ⌃I (Control + I) - Editor/ Structure/ Re-Indent
 
 ![Re-Indent](Re-Indent.png)
 
