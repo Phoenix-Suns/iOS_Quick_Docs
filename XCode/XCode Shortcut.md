@@ -49,7 +49,7 @@
 | Comment selection                  |⌘/      |
 | Fold method/class                  |⌥ ⌘←    |
 | Unfold method/class                |⌥ ⌘→    |
-| Edit all in scope (= rename var)   |⌃⌘E     |
+| Edit all in scope (= rename var)   |⌘^E     |
 | Build & Run                        |        |
 | Build ⌘B                           |⌘B      |
 | Analyze ⇧⌘B                        |⇧⌘B     |
@@ -58,6 +58,7 @@
 | Test ⌘U                            |⌘U      |
 | Clean ⇧⌘K                          |⇧⌘K     |
 | Clear console ⌘K                   |⌘K      |
+| Duplicate File (File/Duplicate)    |⌘^S     |
 
 | File Navigation                    |        |
 |------------------------------------|--------|
@@ -72,6 +73,7 @@
 | Fix previous issue ⌃⌘"             |⌃⌘"     |
 | Add breakpoint ⌘\                  |⌘\      |
 | Activate breakpoints ⌘Y            |⌘Y      |
+| Add - Find (Symbols, image, UI)    |⌘^L     |
 
 | Code Navigation                    |        |
 |------------------------------------|--------|

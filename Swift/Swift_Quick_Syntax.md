@@ -580,6 +580,12 @@ grabLunch(search: {
 // Autoclosure: call method without {}
 func display(greet: @autoclosure () -> ()) {}
 display(greet: print("Hello World!"))
+
+// Closure nil
+var completionHandler: ((_ success: Bool, _ items: [Any]?) -> ())?
+var completionHandler: ((_ success: Bool, _ items: [Any]?) -> Void)?
+// Call
+completionHandler?(true, items)
 ```
 
 ## CLASS
@@ -722,15 +728,19 @@ protocol Brand: Car { }
 ### Structs
 
 ```swift
-// Define
-struct Bike {
-    // Properties, function Sample Class
-}
-
 // Cannot inherit
 // Data struture simple
 // A lot of Properties
 // Store data simple
+
+
+// Define
+struct Bike {
+    // Properties, function Sample Class
+
+    var run: String // auto generate constructor: init(run: String)
+    private var run: String // Not in constructor
+}
 
 // === Struct vs Class ===
 var bike1 = Bike(color: "Blue")
