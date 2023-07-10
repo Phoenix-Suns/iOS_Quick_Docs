@@ -109,6 +109,7 @@ var dog: Animal?
 //dog = Animal()
 //dog?.name = "abc"
 var dogName: String = dog?.name ?? ""
+var dogName: String = dog!.name
 ```
 
 ## STRING
@@ -569,11 +570,11 @@ var hello = { (paraName: String) -> (Int) in
 }
 
 // Closure as parameter
-func grabLunch(search: () -> ()) {
+func grabLunch(search: (String) -> ()) {
   search()  
 }
 // Call function
-grabLunch(search: {
+grabLunch(search: { stringVar in
    print("Alfredo's Pizza: 2 miles away")
 })
 
@@ -586,6 +587,10 @@ var completionHandler: ((_ success: Bool, _ items: [Any]?) -> ())?
 var completionHandler: ((_ success: Bool, _ items: [Any]?) -> Void)?
 // Call
 completionHandler?(true, items)
+// Listen callback
+completionHandler: { success, items in
+  print(success)          
+}
 ```
 
 ## CLASS
@@ -701,6 +706,7 @@ protocol Greet {
 
   // blueprint of a property 
   var name: String { get }
+  // var name: String { get set }
 
   // blueprint of a method 
   func message() 
@@ -799,6 +805,13 @@ catch DivisionError.dividedByZero {
 
 // Disable error handling
 try! division()
+
+// Catch gault
+func getTodos() async throws -> [Todo] {
+  guard let url = URL(string:  "\(Constants.BASE_URL)users/aaa") else {
+    throw APIServiceError.badUrl
+  }
+}
 ```
 
 ## IMPRESSION

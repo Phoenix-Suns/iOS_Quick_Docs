@@ -35,9 +35,24 @@ struct HomeView: View {
             
             // Navigation Style: .inline (small text), .large (large text)
             .navigationBarTitleDisplayMode(.inline)
+
+            // Hide back button
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
 ```
 
 ![NavigationView](NavigationView.png)
+
+## Hide Arrow button on list
+
+```swift
+List {
+    Text("The cell")
+        .background(
+            NavigationLink("", destination: Text("The detail view"))
+                .opacity(0) 
+        )
+}
+```
