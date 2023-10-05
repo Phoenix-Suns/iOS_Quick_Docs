@@ -164,8 +164,10 @@ enum CompassPoint {
     case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune  
 
     // Func Cases
-    case enumFunction(Int, Int)     
+    case enumFunction(Int, Int)
+}
 
+enum CompassPoint: String {
     // Raw value
     case enumValue = "nghia"        
     // CompassPoint(rawValue: 7)    // Set Raw value

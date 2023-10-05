@@ -64,6 +64,14 @@ struct FovoriteButton_Previews: PreviewProvider {
         FovoriteButton(isSet: .constant(true))
     }
 }
+
+// ===== OR =====
+struct FovoriteButton_Previews: PreviewProvider {
+  @State static var letSet = false
+  static var previews: some View {
+    FovoriteButton(isSet: $letSet)
+  }
+}
 ```
 
 ## Multiple Case
