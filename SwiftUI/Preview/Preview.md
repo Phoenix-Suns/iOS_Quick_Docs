@@ -113,3 +113,4 @@ struct GridVerticalItem_Previews: PreviewProvider {
 .environment(\.layoutDirection, .rightToLeft)   // Layout Right to Left
 .environment(\.locale, Locale(identifier: "ar"))    // Language
 ```
+

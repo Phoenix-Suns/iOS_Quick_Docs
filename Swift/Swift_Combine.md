@@ -7,6 +7,7 @@
   - [PassthroughSubject, subscriber nhận value SAU thời điểm subscribe.](#passthroughsubject-subscriber-nhận-value-sau-thời-điểm-subscribe)
   - [CurrentValueSubject, subscriber nhận value HIỆN TẠI \& SAU thời điểm subscribe.](#currentvaluesubject-subscriber-nhận-value-hiện-tại--sau-thời-điểm-subscribe)
   - [AnyPublisher: store and convert Publisher](#anypublisher-store-and-convert-publisher)
+  - [Wait for all complete](#wait-for-all-complete)
 
 
 ```swift
@@ -132,5 +133,29 @@ X 1000 // recieve khi subject.send(0)
 Y 100 // recieve khi subject.send(1) 
 X 1001 // recieve khi subject.send(1)
 Y 200 // recieve khi subject.send(2)
+```
+
+## Wait for all complete
+
+```swift
+let pubs = [Just(1),Just(2),Just(3)]
+let downstream = Publishers.MergeMany(pubs).collect()
+
+
+// ----- OR -----
+@Published private var acceptedTerms: Bool = false
+@Published private var acceptedPrivacy: Bool = false
+@Published private var name: String = ""
+
+// Receive All value complete
+Publishers.CombineLatest3($acceptedTerms, $acceptedPrivacy, $name)
+    .map { terms, pricacy, name in
+        terms && pricacy && !name.isEmpty
+    }.eraseToAnyPublisher()
+
+// Send All Value
+acceptedTerms = true
+acceptedPrivacy = true
+name = "Test Name"
 ```
 
