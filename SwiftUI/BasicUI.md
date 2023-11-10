@@ -43,3 +43,13 @@ Image("Image asset Name")
     .frame(width: 50, height: 50)   // size
 ```
 
+## Get View Position
+
+```swift
+GeometryReader { geo in
+    Button {
+        self.yAxis = UIScreen.main.bounds.height - geo.frame(in: .global).midY
+    }
+.scaleFrame(width: 50, height: 50)
+```
+
