@@ -36,6 +36,7 @@
   - [IMPRESSION](#impression)
     - [Generic type](#generic-type)
     - [Extention class, protocol](#extention-class-protocol)
+    - [Protocol extent from Struct (get properties)](#protocol-extent-from-struct-get-properties)
     - [Typealias: create new type from exist type](#typealias-create-new-type-from-exist-type)
     - [Hashable class: compare 2 object by hashValue](#hashable-class-compare-2-object-by-hashvalue)
     - [Equatable struct: compare 2 object](#equatable-struct-compare-2-object)
@@ -858,6 +859,34 @@ extension Brake {
   }
 }
 ```
+
+### Protocol extent from Struct (get properties)
+
+```swift
+struct Animal {
+    public let name: String
+    public let fly: Bool
+}
+
+protocol Dog {
+    var dogName: String { get }
+}
+
+// dogName will get data from "name"
+// Dog can use as Animal
+extension Animal: Dog {
+    var dogName: String {
+        name
+    }
+}
+
+let animal = Animal(name: "bigDog", fly: true)
+let dog: Dog = animal
+debugPrint(dog.dogName)
+
+// dog.fly // error
+```
+
 
 ### Typealias: create new type from exist type
 

@@ -37,3 +37,12 @@
 #Preview(traits: .landscapeLeft)
 #Preview(traits: .fixedLayout(width: 300, height: 300))
 ```
+
+## Binding
+
+```swift
+#Preview {
+    @State var pickerItem: String = ""
+    return VideoPlayerView(pickerItem: $pickerItem)
+}
+```
