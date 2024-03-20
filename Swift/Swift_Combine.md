@@ -8,6 +8,7 @@
   - [CurrentValueSubject, subscriber nhận value HIỆN TẠI \& SAU thời điểm subscribe.](#currentvaluesubject-subscriber-nhận-value-hiện-tại--sau-thời-điểm-subscribe)
   - [AnyPublisher: store and convert Publisher](#anypublisher-store-and-convert-publisher)
   - [Wait for all complete](#wait-for-all-complete)
+    - [Merge, CombineLatest, Zip](#merge-combinelatest-zip)
 
 
 ```swift
@@ -157,5 +158,51 @@ Publishers.CombineLatest3($acceptedTerms, $acceptedPrivacy, $name)
 acceptedTerms = true
 acceptedPrivacy = true
 name = "Test Name"
+```
+
+### Merge, CombineLatest, Zip
+
+```swift
+// merge: This operator combines two publishers of the same type into one
+// combineLatest: This operator combines the latest values from multiple publishers whenever any of them emit a new value
+// zip: This operator combines values from multiple publishers pair-wise, emitting a tuple of values when all publishers have emitted a value
+
+import UIKit
+import Combine
+
+let publisherInt1 = PassthroughSubject<Int, Never>()
+let publisherInt2 = PassthroughSubject<Int, Never>()
+let publisherStr1 = PassthroughSubject<String, Never>()
+let publisherStr2 = PassthroughSubject<String, Never>()
+
+// Same type, sink when one publisher receive value
+let merged = Publishers.MergeMany([publisherInt1, publisherInt2])
+    .sink { value in
+        print("MergeMany value: \(value)")
+    }
+
+
+// Difference Type + Same type, sink when ALL publisher receive value
+// Sink value order by publisher sink (go first - out first)
+let combine = Publishers.CombineLatest(publisherInt1, publisherStr1)
+    .sink { value in
+        print("CombineLatest value: \(value)")
+    }
+
+// Sink value order by Zip code (first code, out first)
+let zip = Publishers.Zip(publisherInt1, publisherStr1)
+    .sink { value in
+        print("Zip value: \(value)")
+    }
+
+publisherInt1.send(1)
+publisherInt2.send(2)
+publisherStr1.send("Hello ")
+publisherStr2.send("Word")
+
+//MergeMany value: 1
+//MergeMany value: 2
+//Zip value: (1, "Hello ")
+//CombineLatest value: (1, "Hello ")
 ```
 
