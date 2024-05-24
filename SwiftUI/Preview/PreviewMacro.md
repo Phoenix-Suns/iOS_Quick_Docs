@@ -46,3 +46,11 @@
     return VideoPlayerView(pickerItem: $pickerItem)
 }
 ```
+
+## Name
+
+```swift
+#Preview("Article List View") {
+    //...
+}
+```

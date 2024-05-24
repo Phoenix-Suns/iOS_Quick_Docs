@@ -9,6 +9,7 @@
   - [AnyPublisher: store and convert Publisher](#anypublisher-store-and-convert-publisher)
   - [Wait for all complete](#wait-for-all-complete)
     - [Merge, CombineLatest, Zip](#merge-combinelatest-zip)
+- [Reference](#reference)
 
 
 ```swift
@@ -206,3 +207,7 @@ publisherStr2.send("Word")
 //CombineLatest value: (1, "Hello ")
 ```
 
+# Reference
+
+- https://www.techbasevn.com/blog-technical/swift-combine---cac-phng-phap-to-publisher.html
+- 
