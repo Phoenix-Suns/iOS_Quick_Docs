@@ -41,6 +41,8 @@
 ## Binding
 
 ```swift
+let dummie1 = LifetimeDummie1() // Or
+
 #Preview {
     @State var pickerItem: String = ""
     return VideoPlayerView(pickerItem: $pickerItem)
